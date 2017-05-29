@@ -1,0 +1,30 @@
+Feautures to improve:
+
+1) Website's responsiveness feature can be further improved and navigational bar design and functionality can also be changed 
+
+2) Message button: There can be a new dialog box form or new section or new page for sending message to the team from the website
+
+3) Onclicking Social media contact buttons should open respective pages in new tab
+
+4) Result visualisation: There can be a new page displaying the data of sucess results achieved from this compaigning.
+
+5) A brief description of projects already completed can be shown  
+
+6) Google map view size can be adjusted to fit the horizonal screen for better visualization 
+
+7) Images used on the website can be compressed to more smaller sizes to load the website faster
+
+8) Scroll to top functionality onclick button
+
+Stuffs or design that can be added:
+
+1) Improve the resonsiveness feature using bootstrap
+
+2) Improve the main navigation design and its functionality
+
+3) Since the header and footer section containing main navigation bar, social media links and map view are same in all pages, they code can be made static to all pages using a common header and fotter file and load only dynamic content using Ajax to laod the pages faster
+
+4) User registraion feature and user profile can be added to provide personal assistance to users and send them any new awareness message 
+
+
+
