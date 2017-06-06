@@ -13,5 +13,5 @@ for y in range(img.size[1]):
             pix[x, y] = (255, 255, 255, 255)
 img.save('temp.jpg')
 
-file = pytesseract.image_to_string(Image.open('temp.jpg'))
+file = pytesseract.image_to_string(Image.open('sample/image.jpg'))
 print (file)
