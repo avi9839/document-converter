@@ -156,6 +156,21 @@ def text2image(text_path, font_path=None):
     image = image.crop(c_box)
     image.save('output/result.jpg')
 
+#doc file to image file conversion using doc2text + text2image file conversion
+def doc2image(file):
+    document=Document(filename)
+    filename=filename.strip('.docx') #not able to remove .docx
+    name = raw_input('Enter name of the file which will save after conversion: ')+'.txt'  # Name of text file coerced with +.txt
+    fi = open(name,'a')
+    f=open(filename+".txt","wb")
+    for para in document.paragraphs:
+        f.write(para.text)
+        f.close()
+    f = para.text
+    fi.write(f)
+    fi.close()
+    text2image(fi+".txt")
+
 
 i = 5;
 i = int(i)
@@ -180,4 +195,6 @@ while(i != 0):
         image2text("sample/image.jpg")
     elif n == 8:
         text2image("output/output.txt")
+    elif n == 9:
+        doc2image('demvo.docx')
 
