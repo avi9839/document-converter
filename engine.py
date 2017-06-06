@@ -1,19 +1,37 @@
 import pytesseract
+import PIL
 from PIL import Image, ImageFont, ImageOps, ImageDraw, ImageEnhance, ImageFilter
+import numpy as np
 
-
+# Image file to text file conversion using Pytesseract module using Tesseract-OCR
 def image2text(file):
-	im = Image.open(file) # the second one
-	im = im.filter(ImageFilter.MedianFilter())
+	image = Image.open(file).convert('L') # the second one
+	'''im = im.filter(ImageFilter.MedianFilter())
 	enhancer = ImageEnhance.Contrast(im)
 	im = enhancer.enhance(2)
 	im = im.convert('1')
-	im.save('sample/temp.jpg')
-	text = pytesseract.image_to_string(Image.open(file),lang='eng').encode('cp850','replace').decode('cp850')
+	im.save('sample/temp.jpg')'''
+	image = np.array(image)
+	image = binarize_array(image)
+	img = Image.fromarray(image)
+	img.save('my.png')
+	image = Image.open("my.png")
+	text = pytesseract.image_to_string(image,lang='eng').encode('cp850','replace').decode('cp850')
 	textfile = open("output/output.txt","w")
 	textfile.write(text)
 
-def text_image(text_path, font_path=None):
+def binarize_array(numpy_array, threshold=200):
+    """Binarize a numpy array."""
+    for i in range(len(numpy_array)):
+        for j in range(len(numpy_array[0])):
+            if numpy_array[i][j] > threshold:
+                numpy_array[i][j] = 255
+            else:
+                numpy_array[i][j] = 0
+    return numpy_array
+
+# Text file to image file conversion
+def text2image(text_path, font_path=None):
 	"""Convert text file to a grayscale image with black characters on a white background.
 
 	arguments:
@@ -43,7 +61,7 @@ def text_image(text_path, font_path=None):
 	max_width = pt2px(font.getsize(max_width_line)[0])
 	height = max_height * len(lines)  # perfect or a little oversized
 	width = int(round(max_width + 40))  # a little oversized
-	image = PIL.Image.new(grayscale, (width, height), color=PIXEL_OFF)
+	image = PIL.Image.new(grayscale, (width, height), color=255)
 	draw = PIL.ImageDraw.Draw(image)
 
 	# draw each line of text
@@ -52,11 +70,12 @@ def text_image(text_path, font_path=None):
 	line_spacing = int(round(max_height * 0.8))  # reduced spacing seems better
 	for line in lines:
 	    draw.text((horizontal_position, vertical_position),
-	              line, fill=PIXEL_ON, font=font)
+	              line, fill=0, font=font)
 	    vertical_position += line_spacing
 	# crop the text
 	c_box = PIL.ImageOps.invert(image).getbbox()
 	image = image.crop(c_box)
-	image.save('result.jpg')
+	image.save('output/result.jpg')
 
 image2text("sample/image.jpg")
+text2image("output/output.txt")
