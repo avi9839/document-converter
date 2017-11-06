@@ -1,4 +1,4 @@
 import Image
 
 im = Image.open('a.jpg')
-im.save('Foto.png')
+im.save('1q.png')
